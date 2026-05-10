@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-1: #002855; /* Logo Navy */
+  --color-2: #ffffff;
+  --color-3: #6e6e75;
+  --color-4: #000000;
+  --color-5: #9898a0;
+  --color-6: #8d8d92;
+  --color-7: #9998a0;
+  --color-8: #00b5b8; /* Logo Teal */
+  --color-9: #f5f5f7;
+  --color-10: #00cccd;
+
+  --background: var(--color-2);
+  --foreground: var(--color-1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--color-8);
+  --color-secondary: var(--color-1);
+  --color-muted: var(--color-5);
+  --color-surface: var(--color-9);
+  
+  --color-brand-1: var(--color-1);
+  --color-brand-2: var(--color-2);
+  --color-brand-3: var(--color-3);
+  --color-brand-4: var(--color-4);
+  --color-brand-5: var(--color-5);
+  --color-brand-6: var(--color-6);
+  --color-brand-7: var(--color-7);
+  --color-brand-8: var(--color-8);
+  --color-brand-9: var(--color-9);
+  --color-brand-10: var(--color-10);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  
+  --shadow-none: none;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.subtle-shadow {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Depth through borders as per guidelines */
+.depth-border {
+  border: 1px solid var(--color-5);
+}
+
+.running-outline {
+  position: relative;
+  z-index: 0;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.running-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* Border width */
+  background: conic-gradient(from var(--angle), transparent 80%, var(--color-8) 100%);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-angle 4s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes rotate-angle {
+  to { --angle: 360deg; }
 }
