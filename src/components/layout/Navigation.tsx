@@ -21,9 +21,74 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="py-12 border-t border-brand-5/10 bg-white text-center">
-      <div className="text-[10px] font-bold tracking-widest uppercase text-brand-3">
-        © NABH Compliant Architecture | helloviginyx@gmail.com
+    <footer className="bg-white text-brand-1 pt-20 pb-10 px-8 border-t border-brand-5/10">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-20">
+          
+          {/* Brand Column */}
+          <div className="lg:col-span-5 space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight text-brand-1 font-serif italic">Viginyx</h2>
+            <p className="text-sm md:text-base text-brand-4 leading-relaxed max-w-sm">
+              Precision Pharmacovigilance Intelligence for Modern Indian Hospitals. Built for NABH compliance, powered by AI, secured by blockchain.
+            </p>
+            <div className="flex items-center gap-3 text-brand-8">
+              <div className="w-5 h-5 rounded-full bg-brand-8/10 flex items-center justify-center shrink-0">
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-8" />
+              </div>
+              <span className="text-[11px] md:text-xs font-medium text-brand-5">Incubated at RIIDL, Somaiya Vidyavihar University, Mumbai</span>
+            </div>
+          </div>
+
+          {/* Links Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-12">
+            
+            {/* Platform Links */}
+            <div className="space-y-6">
+              <h4 className="text-[10px] font-black text-brand-5 uppercase tracking-[0.2em]">Platform</h4>
+              <ul className="space-y-4">
+                {["ADR Reporting", "Causality Engine", "CDSCO Yellow Forms", "PvPI Integration", "Audit Trail"].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-[13px] font-bold text-brand-3 hover:text-brand-8 transition-colors">{link}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Compliance Links */}
+            <div className="space-y-6">
+              <h4 className="text-[10px] font-black text-brand-5 uppercase tracking-[0.2em]">Compliance</h4>
+              <ul className="space-y-4">
+                {["NABH 6th Edition", "DPDP Act 2023", "CDSCO Standards", "PvPI Guidelines", "Blockchain Security"].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-[13px] font-bold text-brand-3 hover:text-brand-8 transition-colors">{link}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-10 border-t border-brand-5/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded-lg bg-brand-1/5 flex items-center justify-center">
+              <div className="w-3 h-3 border-2 border-brand-1/20 rounded-sm" />
+            </div>
+            <span className="text-[10px] md:text-xs font-black text-brand-5 uppercase tracking-widest">NABH Compliant Architecture</span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-brand-1/5 flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-brand-3 rounded-sm flex items-center justify-center">
+                <div className="w-1 h-1 bg-brand-3 rounded-full" />
+              </div>
+            </div>
+            <a href="mailto:helloviginyx@gmail.com" className="text-[13px] font-bold text-brand-3 hover:text-brand-1 transition-colors tracking-tight">
+              helloviginyx@gmail.com
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

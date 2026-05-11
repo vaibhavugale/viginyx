@@ -52,9 +52,9 @@ export default function Home() {
       <main className="flex-grow">
         <Hero />
         <TrustLayer />
-        <AssessmentWidget />
+        {/* <AssessmentWidget /> */}
         <IntelligenceEngine />
-        <AdminAnalytics />
+        {/* <AdminAnalytics /> */}
         <RoleBasedAccess />
         <FAQ />
         <EarlyAccessForm />
