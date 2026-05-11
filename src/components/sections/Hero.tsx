@@ -17,8 +17,7 @@ export default function Hero() {
   const titleLine2Ref = useRef(null);
   const subtextRef = useRef(null);
   const ctaRef = useRef(null);
-  const stethoscopeRef = useRef<HTMLDivElement>(null);
-  const medicineRef = useRef<HTMLDivElement>(null);
+  const pillsRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const isHoveringRef = useRef(false);
@@ -96,23 +95,20 @@ export default function Hero() {
 
     // Function to initialize scroll-triggered fly-out
     const initScrollAnimations = () => {
-      [stethoscopeRef, medicineRef].forEach((ref, i) => {
-        if (ref.current) {
-          gsap.to(ref.current, {
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: 1,
-            },
-            x: i === 0 ? 400 : -400,
-            y: 0, 
-            opacity: 1,
-            rotate: i === 0 ? 45 : -45,
-            ease: "none"
-          });
-        }
-      });
+      if (pillsRef.current) {
+        gsap.to(".pill-instance", {
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top 15%",
+            end: "bottom top",
+            scrub: true,
+          },
+          y: (i) => "+=" + (400 + Math.random() * 600),
+          rotate: (i) => i * 40,
+          opacity: 0,
+          ease: "none"
+        });
+      }
     };
 
     const tl = gsap.timeline({ 
@@ -157,26 +153,40 @@ export default function Hero() {
       y: 20,
       opacity: 0,
       duration: 0.8,
-    }, "-=0.6")
-    .fromTo(stethoscopeRef.current, 
-      { x: 400, y: 400, opacity: 0 },
+    }, "-=0.6");
+
+    // Pill Spill Animation - Frame distribution around the center
+    const pillElements = gsap.utils.toArray(".pill-instance");
+    tl.fromTo(pillElements, 
       { 
-        x: 0, 
-        y: 0,
-        opacity: 1, 
-        duration: 1.5, 
-      }, 
-      "-=1"
-    )
-    .fromTo(medicineRef.current,
-      { x: -400, y: 400, opacity: 0 },
-      { 
-        x: 0, 
-        y: 0,
-        opacity: 1, 
-        duration: 1.5, 
+        x: 0,
+        y: -100, 
+        opacity: 0, 
+        scale: 0,
+        rotate: () => Math.random() * 360 
       },
-      "-=1.2"
+      { 
+        x: (i) => {
+          const angle = (i / pillElements.length) * Math.PI * 2;
+          const radiusX = (heroRef.current?.clientWidth || 1000) * 0.42;
+          return Math.cos(angle) * radiusX + (Math.random() - 0.5) * 150;
+        }, 
+        y: (i) => {
+          const angle = (i / pillElements.length) * Math.PI * 2;
+          const radiusY = (heroRef.current?.clientHeight || 600) * 0.35;
+          return Math.sin(angle) * radiusY + (Math.random() * 100) + 150;
+        },
+        opacity: (i) => 0.6 + (Math.random() * 0.4), 
+        scale: () => 0.6 + Math.random() * 0.5,
+        rotate: () => Math.random() * 720,
+        duration: (i) => 2.5 + Math.random() * 2,
+        stagger: {
+          each: 0.04,
+          from: "random"
+        },
+        ease: "power2.out"
+      },
+      "-=2"
     );
 
     return () => {
@@ -202,24 +212,22 @@ export default function Hero() {
           className="absolute inset-0 pointer-events-none"
         />
 
-        {/* Floating Assets */}
-        <div ref={medicineRef} className="absolute left-[4%] bottom-[15%] w-32 md:w-40 lg:w-48 pointer-events-none z-10">
-          <Image
-            src="/medicie.png"
-            alt="Medical Supplies"
-            width={300}
-            height={300}
-            className="w-full h-auto object-contain -rotate-0 opacity-80"
-          />
-        </div>
-        <div ref={stethoscopeRef} className="absolute right-[4%] bottom-[15%] w-32 md:w-40 lg:w-48 pointer-events-none z-10">
-          <Image
-            src="/stethoscope.png"
-            alt="Medical Stethoscope"
-            width={300}
-            height={300}
-            className="w-full h-auto object-contain rotate-12 opacity-80"
-          />
+        {/* Pill Spill Assets */}
+        <div ref={pillsRef} className="absolute inset-0 pointer-events-none z-0">
+          {Array.from({ length: 22 }).map((_, i) => (
+            <div 
+              key={i} 
+              className="pill-instance absolute left-1/2 -top-10 w-12 md:w-20 h-12 md:h-20"
+            >
+              <Image
+                src="/pill.png"
+                alt="Pill"
+                width={100}
+                height={100}
+                className="w-full h-auto object-contain drop-shadow-lg"
+              />
+            </div>
+          ))}
         </div>
 
         {/* Central Content */}
@@ -253,5 +261,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+
   );
 }
