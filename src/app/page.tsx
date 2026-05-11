@@ -11,7 +11,7 @@ import AssessmentWidget from "@/components/sections/AssessmentWidget";
 import IntelligenceEngine from "@/components/sections/IntelligenceEngine";
 import TrustLayer from "@/components/sections/TrustLayer";
 import AdminAnalytics from "@/components/sections/AdminAnalytics";
-import RoleAccess from "@/components/sections/RoleAccess";
+import RoleBasedAccess from "@/components/sections/RoleBasedAccess";
 import FAQ from "@/components/sections/FAQ";
 import EarlyAccessForm from "@/components/sections/EarlyAccessForm";
 
@@ -51,11 +51,11 @@ export default function Home() {
 
       <main className="flex-grow">
         <Hero />
+        <TrustLayer />
         <AssessmentWidget />
         <IntelligenceEngine />
-        <TrustLayer />
         <AdminAnalytics />
-        <RoleAccess />
+        <RoleBasedAccess />
         <FAQ />
         <EarlyAccessForm />
       </main>
