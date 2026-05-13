@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@viginyx/theme/src/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
     default: "VIGINYX",
     template: "%s | VIGINYX",
   },
-  description: "Next-generation pharmacovigilance and hospital intelligence platform.",
+  description:
+    "Next-generation pharmacovigilance and hospital intelligence platform.",
 };
 
 export default function RootLayout({
